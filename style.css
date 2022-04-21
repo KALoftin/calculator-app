@@ -6,7 +6,14 @@ main {
 
 .calc-container {
   border: 1px solid blue;
+  /* width: 500px;
+  height: 500px; */
 }
+
+/* #calc-input {
+width: 100%;
+} */
+
 .footer {
   position: fixed;
   left: 0;

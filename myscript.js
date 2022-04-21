@@ -1,9 +1,18 @@
+const input = document.getElementById('calc-input');
 let displayValue = '';
 
-function numBtnClick() {
-  // const btn = document.getElementById('calc-input');
-  const btn = (document.getElementById('calc-input').value = 'Hello');
+function numBtnClick(id) {
+  const btnID = document.getElementById(`${id}`);
+  displayValue += btnID.value;
+  input.value = displayValue;
 }
+
+Array.from(document.getElementsByClassName('num-btns')).forEach(function (e) {
+  const elmID = e.getAttribute('id');
+  e.addEventListener('click', function () {
+    numBtnClick(elmID);
+  });
+});
 
 function add(x, y) {
   return x + y;
