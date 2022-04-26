@@ -6,13 +6,49 @@ main {
 
 .calc-container {
   border: 1px solid blue;
-  /* width: 500px;
-  height: 500px; */
+  width: 500px;
+  /* height: 500px; */
 }
 
-/* #calc-input {
-width: 100%;
-} */
+.calc-display {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100px;
+}
+
+#calc-input {
+  width: 90%;
+  height: 90%;
+}
+
+.calc-btns-container {
+  border: 1px solid black;
+  display: flex;
+}
+
+.calc-nums-container {
+  border: 1px solid red;
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.num-btns, #btn-clear, #btn-dec{
+  width: 100px;
+  /* height: 100px; */
+  flex: auto;
+}
+
+.calc-operators-container {
+  display: flex;
+  flex-direction: column;
+}
+
+.oper-btns, #btn-equal {
+  width: 100px;
+  height: 100px;
+  flex: auto;
+}
 
 .footer {
   position: fixed;

@@ -1,17 +1,37 @@
 const input = document.getElementById('calc-input');
+const equals = document.getElementById('btn-equal');
 let displayValue = '';
+let firstNumInput;
+let inputOperator = '';
 
-function numBtnClick(id) {
-  const btnID = document.getElementById(`${id}`);
-  displayValue += btnID.value;
-  input.value = displayValue;
-}
-
+// Creates an array from the number buttons in the DOM
+// and adds an event listener to each
 Array.from(document.getElementsByClassName('num-btns')).forEach(function (e) {
   const elmID = e.getAttribute('id');
   e.addEventListener('click', function () {
-    numBtnClick(elmID);
+    // Event stores the number button value in the variable displayValue
+    // and displays the value in the browser
+    const btnID = document.getElementById(`${elmID}`);
+    displayValue += btnID.value;
+    input.value = displayValue;
   });
+});
+
+// Similar to function above, but adds the operator the user enters
+Array.from(document.getElementsByClassName('oper-btns')).forEach(function (e) {
+  const elmID = e.getAttribute('id');
+  e.addEventListener('click', function () {
+    const btnID = document.getElementById(`${elmID}`);
+    inputOperator = btnID.value;
+    firstNumInput = Number(displayValue);
+    displayValue = '';
+    input.value = displayValue;
+  });
+});
+
+equals.addEventListener('click', function () {
+  const newInputNums = Number(displayValue);
+  operate(add, firstNumInput, newInputNums);
 });
 
 function add(x, y) {
@@ -33,8 +53,3 @@ function divide(x, y) {
 function operate(operator, x, y) {
   console.log(operator(x, y));
 }
-
-// operate(add, 5, 10);
-// operate(subtract, 10, 5);
-// operate(multiply, 10, 5);
-// operate(divide, 10, 5);
