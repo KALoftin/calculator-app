@@ -3,6 +3,14 @@ const equals = document.getElementById('btn-equal');
 let displayValue = '';
 let firstNumInput;
 let inputOperator = '';
+let newOpNums;
+
+function operate(operator, x, y) {
+  if (operator === '/') return x / y;
+  if (operator === '*') return x * y;
+  if (operator === '-') return x - y;
+  if (operator === '+') return x + y;
+}
 
 // Creates an array from the number buttons in the DOM
 // and adds an event listener to each
@@ -22,34 +30,23 @@ Array.from(document.getElementsByClassName('oper-btns')).forEach(function (e) {
   const elmID = e.getAttribute('id');
   e.addEventListener('click', function () {
     const btnID = document.getElementById(`${elmID}`);
-    inputOperator = btnID.value;
-    firstNumInput = Number(displayValue);
-    displayValue = '';
-    input.value = displayValue;
+    if (inputOperator) {
+      const newInputNums = Number(displayValue);
+      firstNumInput = operate(inputOperator, firstNumInput, newInputNums);
+      displayValue = '';
+      input.value = firstNumInput;
+      inputOperator = btnID.value;
+    } else {
+      inputOperator = btnID.value;
+      firstNumInput = Number(displayValue);
+      displayValue = '';
+      input.value = displayValue;
+    }
   });
 });
 
 equals.addEventListener('click', function () {
   const newInputNums = Number(displayValue);
-  operate(add, firstNumInput, newInputNums);
+  displayValue = operate(inputOperator, firstNumInput, newInputNums);
+  input.value = displayValue;
 });
-
-function add(x, y) {
-  return x + y;
-}
-
-function subtract(x, y) {
-  return x - y;
-}
-
-function multiply(x, y) {
-  return x * y;
-}
-
-function divide(x, y) {
-  return x / y;
-}
-
-function operate(operator, x, y) {
-  console.log(operator(x, y));
-}
