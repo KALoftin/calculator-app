@@ -1,12 +1,24 @@
 const input = document.getElementById('calc-input');
 const equals = document.getElementById('btn-equal');
+const clear = document.getElementById('btn-clear');
 let displayValue = '';
 let firstNumInput;
 let inputOperator = '';
 let newOpNums;
+let didUserInputNums = false;
+
+input.value = '0';
 
 function operate(operator, x, y) {
-  if (operator === '/') return x / y;
+  if (operator === '/') {
+    if (y === 0) {
+      didUserInputNums = false;
+      window.alert('Error: No division by 0');
+      return '0';
+    } else {
+      return x / y;
+    }
+  }
   if (operator === '*') return x * y;
   if (operator === '-') return x - y;
   if (operator === '+') return x + y;
@@ -22,6 +34,7 @@ Array.from(document.getElementsByClassName('num-btns')).forEach(function (e) {
     const btnID = document.getElementById(`${elmID}`);
     displayValue += btnID.value;
     input.value = displayValue;
+    didUserInputNums = true;
   });
 });
 
@@ -37,16 +50,37 @@ Array.from(document.getElementsByClassName('oper-btns')).forEach(function (e) {
       input.value = firstNumInput;
       inputOperator = btnID.value;
     } else {
-      inputOperator = btnID.value;
-      firstNumInput = Number(displayValue);
-      displayValue = '';
-      input.value = displayValue;
+      if (didUserInputNums) {
+        inputOperator = btnID.value;
+        firstNumInput = Number(displayValue);
+        displayValue = '';
+        input.value = displayValue;
+      } else if (firstNumInput) {
+        inputOperator = btnID.value;
+        displayValue = '';
+        input.value = displayValue;
+      } else {
+        window.alert('Start with a number not operator');
+        displayValue = '';
+      }
     }
   });
 });
 
 equals.addEventListener('click', function () {
   const newInputNums = Number(displayValue);
-  displayValue = operate(inputOperator, firstNumInput, newInputNums);
-  input.value = displayValue;
+  const newNum = operate(inputOperator, firstNumInput, newInputNums);
+  input.value = newNum;
+  firstNumInput = newNum;
+  displayValue = '';
+  inputOperator = '';
+  didUserInputNums = false;
+});
+
+clear.addEventListener('click', function () {
+  input.value = '0';
+  displayValue = '';
+  inputOperator = '';
+  didUserInputNums = false;
+  firstNumInput = 0;
 });
