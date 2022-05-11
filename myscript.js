@@ -43,22 +43,27 @@ Array.from(document.getElementsByClassName('oper-btns')).forEach(function (e) {
   const elmID = e.getAttribute('id');
   e.addEventListener('click', function () {
     const btnID = document.getElementById(`${elmID}`);
-    if (inputOperator) {
+    // Calculate if user inputs 2 numbers and an operator
+    if (didUserInputNums && inputOperator) {
       const newInputNums = Number(displayValue);
       firstNumInput = operate(inputOperator, firstNumInput, newInputNums);
       displayValue = '';
       input.value = firstNumInput;
       inputOperator = btnID.value;
     } else {
+      // Add the first input numbers and operator to memory
       if (didUserInputNums) {
         inputOperator = btnID.value;
         firstNumInput = Number(displayValue);
         displayValue = '';
         input.value = displayValue;
-      } else if (firstNumInput) {
+        didUserInputNums = false;
+        // Update calculation call if first input number is already there
+      } else if (firstNumInput || firstNumInput === 0) {
         inputOperator = btnID.value;
         displayValue = '';
         input.value = displayValue;
+        // Alerts user to start with a number not an operator
       } else {
         window.alert('Start with a number not operator');
         displayValue = '';
@@ -82,5 +87,5 @@ clear.addEventListener('click', function () {
   displayValue = '';
   inputOperator = '';
   didUserInputNums = false;
-  firstNumInput = 0;
+  firstNumInput = NaN;
 });
