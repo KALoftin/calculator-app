@@ -5,38 +5,48 @@ main {
 }
 
 .calc-container {
-  border: 1px solid blue;
+  border-radius: 15px;
   width: 500px;
-  /* height: 500px; */
+  background-color: blue;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-bottom: 2%;
 }
 
 .calc-display {
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100px;
+  height: 20%;
 }
 
 #calc-input {
+  text-align: right;
+  font-size: 5em;
   width: 90%;
-  height: 90%;
+  height: 80%;
 }
 
 .calc-btns-container {
-  border: 1px solid black;
   display: flex;
+  width: 90%;
 }
 
 .calc-nums-container {
-  border: 1px solid red;
   display: flex;
   flex-wrap: wrap;
 }
 
 .num-btns, #btn-clear, #btn-dec{
-  width: 100px;
-  /* height: 100px; */
+  width: 30%;
   flex: auto;
+  font-size: 2.5em;
+  text-align: left;
+}
+
+#btn-clear {
+  background-color: lightcoral;
 }
 
 .calc-operators-container {
@@ -48,6 +58,8 @@ main {
   width: 100px;
   height: 100px;
   flex: auto;
+  font-size: 2em;
+  background-color: lightcoral;
 }
 
 .footer {
